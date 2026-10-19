@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>과속 멈춰 | 서울 신호등 남은 시간 안내</title>
+<style>
+:root{--blue:#74bdf1;--deep:#174e78;--sky:#eaf7ff;--ink:#173d59;--green:#29985b;--line:#b9def9;--cream:#fffdf5}
+*{box-sizing:border-box}body{margin:0;background:#fffefa;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif}
+.top{height:108px;background:linear-gradient(90deg,#dff3ff,#f4fbff);border-bottom:3px solid #c6e8ff;display:flex;align-items:center;padding:12px 4.2%;gap:20px;position:relative;overflow:hidden}
+.logoLight{width:40px;height:84px;background:#262b30;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;box-shadow:0 2px 4px #8ab0c6;flex-shrink:0}
+.bulb{width:18px;height:18px;border-radius:50%;box-shadow:inset -2px -2px 3px #0003}.red{background:#ff4d5c}.amber{background:#ffda51}.green{background:#42d884}
+h1{font-size:clamp(30px,4vw,52px);margin:0;color:#18252b;letter-spacing:-2px;white-space:nowrap}.subtitle{border-left:2px solid #7cabc9;padding-left:18px;font-size:20px;font-weight:700}.subtitle small{display:block;font-size:15px;font-weight:500;margin-top:7px}
+.skybits{margin-left:auto;display:flex;align-items:center;gap:20px}.cloud{font-size:35px;color:#fff;text-shadow:0 1px 3px #c6e5f6}.bubble{background:#ffe66b;border-radius:50%;padding:15px 20px;transform:rotate(-7deg);font-size:14px;font-weight:800;text-align:center}.tinyBird{font-size:54px;line-height:1}
+main{max-width:1500px;margin:20px auto 0;padding:0 2%;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(350px,1fr);gap:18px}
+.panel{border:2px solid var(--blue);border-radius:17px;background:#fff;padding:16px;box-shadow:0 2px 0 #dff2ff}
+.left{min-width:0}.sectionHead{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:800;margin:0 0 12px}.pin{color:#217db6;font-size:27px}.mapTools{margin-left:auto;display:flex;align-items:center;gap:9px;font-size:15px;font-weight:500;color:#356d94}.circleBtn{border:1.5px solid #a9d9ff;background:#f8fcff;border-radius:50%;width:42px;height:42px;color:#1675b7;font-size:26px;cursor:pointer}
+.mapFrame{height:clamp(400px,45vw,570px);border:2px solid #a9cce2;border-radius:14px;overflow:hidden;background:#f7f4e5;position:relative}
+.mapFrame svg{width:100%;height:100%;display:block}.mapNav{position:absolute;top:45%;border:2px solid #6bb7ed;background:#fff;border-radius:50%;width:46px;height:46px;color:#1780c4;font-size:26px;box-shadow:0 2px 6px #7776;cursor:pointer}.mapNav.prev{left:-5px}.mapNav.next{right:-5px}
+.tapHint{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);background:#fff;border:2px solid #8cbde0;border-radius:25px;padding:8px 16px;font-size:14px;font-weight:700;white-space:nowrap;cursor:pointer}
+.mapCaption{display:flex;justify-content:space-between;gap:12px;padding:13px 8px 0;font-size:14px;font-weight:700}.searchPanel{margin-top:14px}.searchLine{display:flex;gap:10px}.searchLine input{min-width:0;flex:1;border:1.5px solid #9ed3ff;border-radius:14px;padding:14px;font-size:16px}.blueBtn{border:0;border-radius:28px;background:#2585c8;color:white;font-weight:800;padding:12px 28px;font-size:17px;cursor:pointer;min-width:132px}.searchTitle{font-size:19px;font-weight:800;margin:12px 4px 8px}.result{display:flex;align-items:center;gap:14px;border:1.5px solid #c1e3ff;border-radius:17px;padding:9px 15px;margin-top:7px;cursor:pointer}.miniSignal{width:24px;height:42px;background:#252a2e;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;flex-shrink:0}.miniSignal i{width:7px;height:7px;border-radius:50%;background:#ef4b59}.miniSignal i:nth-child(2){background:#ffdb53}.miniSignal i:nth-child(3){background:#3bd783}.result strong{display:block}.result small{display:block;color:#66849b;margin-top:4px}.view{margin-left:auto;border:1px solid #b7ddff;background:#f5fbff;color:#176fa8;border-radius:25px;padding:8px 18px;font-weight:700}
+.right{padding:16px 20px;display:flex;flex-direction:column;min-width:0}.rightTitle{font-size:23px;font-weight:800;margin:0 0 4px}.subTitle{color:#227db5;font-size:16px;margin-bottom:15px}.placeName{background:#e5f4ff;border-radius:17px;padding:16px 20px;font-size:23px;font-weight:800;margin-bottom:24px}.countWrap{display:grid;grid-template-columns:135px 1fr;align-items:center;gap:22px;padding:0 4px 23px;border-bottom:2px dashed #d4e3ec}.bigSignal{height:180px;width:90px;background:#24282b;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;margin:auto;box-shadow:0 2px 3px #777}.bigSignal span{width:41px;height:41px;border-radius:50%;box-shadow:inset -4px -4px 7px #0002}.bigSignal .r{background:#ff4355}.bigSignal .y{background:#ffda50}.bigSignal .g{background:#3ee17c}.countLabel{font-size:19px;font-weight:800}.count{font-size:clamp(58px,6vw,95px);line-height:1.1;color:#29955b;font-weight:900;margin:8px 0}.count small{font-size:25px}.status{display:inline-block;border:1.5px solid #a7dfbb;background:#effcf3;border-radius:30px;padding:11px 17px;color:#20814a;font-size:18px;font-weight:800}.fieldLabel{font-weight:800;margin:17px 0 8px}.select{width:100%;padding:16px;border:1.5px solid #c5d9e9;border-radius:15px;background:#fff;font-size:16px;color:#263e50}.greenBtn{width:100%;border:0;border-radius:15px;background:#329d60;color:white;font-weight:800;font-size:20px;padding:17px;margin-top:16px;cursor:pointer;box-shadow:inset 0 -3px #0001}.notice{margin-top:20px;background:#fff6d9;border-radius:17px;padding:15px 16px;font-size:14px;line-height:1.65;color:#655b38}.notice strong{display:block;color:#4e4a36}.mascotArea{margin-top:auto;min-height:170px;display:flex;align-items:center;justify-content:center;gap:16px;padding-top:18px}.pengsuni{width:92px;height:120px;flex-shrink:0}.speech{align-self:flex-start;border:1.5px solid #344c5d;border-radius:50%;padding:12px 16px;font-size:14px;font-weight:800;transform:rotate(-5deg);background:#fff}.littlePeng{font-size:32px}.eagle{font-size:36px}.mascotCaption{text-align:center;font-size:13px;font-weight:800;margin-top:-3px}
+footer{text-align:center;color:#557b98;font-size:13px;line-height:1.8;padding:14px 10px 25px;background:linear-gradient(#fff,#f1f9e8)}
+@media(max-width:900px){main{grid-template-columns:1fr}.right{min-height:800px}.top{height:auto;min-height:100px;flex-wrap:wrap}.subtitle{font-size:16px}.skybits{gap:8px}.bubble{display:none}.mapFrame{height:480px}}
+@media(max-width:540px){.top{padding:10px;gap:9px}.logoLight{width:30px;height:64px}.bulb{width:14px;height:14px}h1{font-size:29px;letter-spacing:-1px}.subtitle{display:none}.skybits .cloud{display:none}.tinyBird{font-size:36px}.mapTools span{display:none}.sectionHead{font-size:18px}.panel{padding:10px}.mapFrame{height:390px}.mapCaption{font-size:12px;flex-direction:column}.right{padding:14px}.countWrap{grid-template-columns:95px 1fr;gap:10px}.bigSignal{width:68px;height:150px}.bigSignal span{width:32px;height:32px}.placeName{font-size:18px}.count{font-size:60px}.blueBtn{min-width:90px;padding:12px}.result{padding:8px}.rightTitle{font-size:20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logoLight" aria-label="신호등"><span class="bulb red"></span><span class="bulb amber"></span><span class="bulb green"></span></div>
+  <h1>과속 멈춰</h1>
+  <div class="subtitle">서울 신호등 남은 시간 안내<small>로그인 없이 바로 사용하세요!</small></div>
+  <div class="skybits"><span class="cloud">☁</span><div class="bubble">안전 운전!<br>안전 보행!</div><span class="tinyBird">🐧</span></div>
+</header>
+<main>
+ <section class="left">
+  <div class="panel">
+   <div class="sectionHead"><span class="pin">●</span>우리 동네 신호 지도<div class="mapTools"><button class="circleBtn" id="prevMap" aria-label="이전 지도">‹</button><button class="circleBtn" id="nextMap" aria-label="다음 지도">›</button><span>지도를 좌우로 넘겨 보세요</span></div></div>
+   <div class="mapFrame">
+    <svg id="mapSvg" viewBox="0 0 760 560" role="img" aria-label="손그림 느낌의 예시 지도">
+     <defs><pattern id="paper" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 6l8 -2 M12 16l6 1" stroke="#d9d3be" stroke-width=".7" opacity=".55"/></pattern></defs>
+     <rect width="760" height="560" fill="#f7f4e7"/><rect width="760" height="560" fill="url(#paper)"/>
+     <g fill="none" stroke-linecap="round"><path d="M-20 75 L360 290 L510 560" stroke="#f6dc67" stroke-width="22"/><path d="M-20 75 L360 290 L510 560" stroke="#fff7b6" stroke-width="13"/><path d="M760 -20 L360 290 L-20 560" stroke="#f4d85c" stroke-width="24"/><path d="M760 -20 L360 290 L-20 560" stroke="#fff8c8" stroke-width="13"/><path d="M-20 75L360 290L510 560M760 -20L360 290L-20 560" stroke="#fff" stroke-width="2"/><path d="M-20 400 Q150 260 360 350 T760 410 M20 560 Q170 350 360 400" stroke="#4ca9ed" stroke-width="4"/><path d="M-20 410 Q150 270 360 360 T760 420 M25 560 Q175 360 360 410" stroke="#ffd95b" stroke-width="2"/></g>
+     <g stroke="#25323a" stroke-width="2.2" stroke-linejoin="round">
+      <rect x="90" y="125" width="72" height="58" rx="2" fill="#48a9e8"/><rect x="177" y="72" width="50" height="62" fill="#44a9e8"/><rect x="250" y="98" width="62" height="58" fill="#4eafe9"/><rect x="72" y="235" width="62" height="49" fill="#47a9e7"/><rect x="138" y="255" width="58" height="54" fill="#4da9e7"/><rect x="205" y="231" width="54" height="62" fill="#4ba7e6"/>
+      <rect x="536" y="235" width="61" height="48" fill="#f7df64"/><rect x="600" y="210" width="65" height="58" fill="#5bd78c"/><rect x="602" y="435" width="57" height="58" fill="#5cd58a"/><rect x="665" y="460" width="60" height="37" fill="#5bd58b"/><rect x="610" y="390" width="50" height="42" fill="#f6dd5c"/><rect x="670" y="385" width="38" height="47" fill="#f6dc60"/>
+      <rect x="220" y="460" width="70" height="48" fill="#f16c78"/><rect x="280" y="488" width="72" height="50" fill="#f46b78"/><rect x="170" y="500" width="70" height="48" fill="#f56d78"/>
+     </g>
+     <g stroke="#26343a" stroke-width="2"><path d="M400 40l32 -26 34 26z" fill="#f56d70"/><rect x="408" y="40" width="48" height="35" fill="#ffe46b"/><path d="M480 320l30 -26 33 26z" fill="#f47770"/><rect x="488" y="320" width="47" height="32" fill="#fff0a0"/><path d="M110 380l38 -28 39 28z" fill="#f36f70"/><rect x="120" y="380" width="58" height="38" fill="#f4df73"/><path d="M560 382l30 -27 34 27z" fill="#f36f70"/><rect x="570" y="382" width="48" height="43" fill="#ffe979"/><path d="M650 382l29 -24 32 24z" fill="#f36f70"/><rect x="659" y="382" width="45" height="44" fill="#ffe779"/></g>
+     <g fill="#38bd64"><path d="M35 125l5 -14 4 14m-10 -2l-5 -8m15 8l5 -8M315 25l4 -13 5 13m-7 -2l-6 -8m15 8l5 -8M525 80l4 -13 4 13m-8 -1l-6 -8m16 8l5 -8M70 330l4 -13 4 13m-8 -1l-6 -8m15 8l5 -8M390 500l4 -13 4 13m-8 -1l-6 -8m15 8l5 -8"/></g>
+     <g font-size="20" font-weight="700" fill="#243e50" stroke="#273c4c" stroke-width="1.5"><rect x="45" y="30" width="95" height="43" rx="10" fill="#fff"/><text x="60" y="58" stroke="none">주택가</text><rect x="620" y="125" width="105" height="45" rx="10" fill="#fff"/><text x="637" y="154" stroke="none">학교 앞</text></g>
+     <g id="mapSignal" transform="translate(340 230)" cursor="pointer"><rect width="45" height="100" rx="9" fill="#242a2e" stroke="#151b1e" stroke-width="3"/><circle cx="22.5" cy="21" r="10" fill="#f54c5b"/><circle cx="22.5" cy="50" r="10" fill="#ffdb52"/><circle cx="22.5" cy="79" r="10" fill="#39d77b"/><path d="M22 100v18" stroke="#222" stroke-width="7"/></g>
+     <g transform="translate(460 95)"><ellipse cx="25" cy="30" rx="25" ry="29" fill="#222c32"/><ellipse cx="25" cy="42" rx="16" ry="14" fill="#fff"/><circle cx="17" cy="23" r="4" fill="#fff"/><circle cx="33" cy="23" r="4" fill="#fff"/><circle cx="18" cy="24" r="2" fill="#101820"/><circle cx="32" cy="24" r="2" fill="#101820"/><path d="M21 31l4 -3 5 3 -5 4z" fill="#f6ce4e" stroke="#333"/><path d="M13 58l-5 5m28 -5l5 5" stroke="#333" stroke-width="4" stroke-linecap="round"/></g>
+    </svg>
+    <button class="mapNav prev" id="mapLeft" aria-label="왼쪽 지역">‹</button><button class="mapNav next" id="mapRight" aria-label="오른쪽 지역">›</button>
+    <button class="tapHint" id="signalDetail">눌러서 신호 보기</button>
+   </div>
+   <div class="mapCaption"><span>☞　신호등 그림을 누르면 상세 화면이 열려요.</span><span>⌕　좌우로 이동해서 다른 지역도 확인해 보세요.</span></div>
+  </div>
+  <div class="panel searchPanel">
+   <div class="searchLine"><input id="search" placeholder="⌕  교차로 또는 장소 검색하기" aria-label="교차로 또는 장소 검색"><button class="blueBtn" id="searchBtn">검색</button></div>
+   <div class="searchTitle">📍 검색 결과</div>
+   <div id="results">
+    <div class="result" data-place="예시 교차로 · 학교 앞"><span class="miniSignal"><i></i><i></i><i></i></span><div><strong>예시 교차로 · 학교 앞</strong><small>서울시 가상 예시 위치</small></div><button class="view">보기　›</button></div>
+    <div class="result" data-place="예시 교차로 · 주택가"><span class="miniSignal"><i></i><i></i><i></i></span><div><strong>예시 교차로 · 주택가</strong><small>옆 동네 가상 예시 위치</small></div><button class="view">보기　›</button></div>
+   </div>
+  </div>
+ </section>
+ <aside class="panel right">
+  <h2 class="rightTitle">🚦 신호등 남은 시간</h2><div class="subTitle">📍 선택한 장소</div>
+  <div class="placeName" id="placeName">예시 교차로 · 학교 앞</div>
+  <div class="countWrap"><div class="bigSignal"><span class="r"></span><span class="y"></span><span class="g"></span></div><div><div class="countLabel">현재 신호 남은 시간</div><div class="count"><span id="count">18</span><small> 초</small></div><div class="status">●　예시 초록불</div></div></div>
+  <div class="fieldLabel">📍 확인할 예시 교차로</div>
+  <select class="select" id="placeSelect"><option>예시 교차로 · 학교 앞</option><option>예시 교차로 · 주택가</option><option>예시 교차로 · 공원 입구</option></select>
+  <button class="greenBtn" id="showSignal">이 신호등 보기</button>
+  <div class="notice">ⓘ　<strong>체험용 모의 데이터입니다.</strong>서울시의 실제 신호 주기나 공식 실시간 정보가 아닙니다. 실제 운전·보행 판단에는 사용하지 마세요.</div>
+  <div class="mascotArea">
+   <svg class="pengsuni" viewBox="0 0 120 150" role="img" aria-label="펭순이 캐릭터">
+    <g stroke="#26323a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+     <path d="M23 65Q18 45 33 29Q46 13 65 18Q91 21 99 48L105 83Q107 104 91 113L85 132Q82 140 76 135L73 116Q58 121 45 114L40 135Q36 141 31 135L29 111Q12 99 17 81Z" fill="#f8c8d5"/>
+     <path d="M38 78Q36 58 53 54Q71 50 79 69L84 110Q62 123 41 110Z" fill="#fffdf8"/>
+     <circle cx="43" cy="49" r="3.8" fill="#20272b" stroke="none"/><circle cx="72" cy="49" r="3.8" fill="#20272b" stroke="none"/>
+     <path d="M48 59Q58 53 68 59Q59 69 48 59Z" fill="#ffdf36"/>
+     <path d="M33 29Q17 25 19 14Q24 2 35 11L43 19L50 10Q61 12 55 23L43 34Z" fill="#ff91b5"/>
+     <path d="M35 18L41 23L49 15" fill="none" stroke="#d65e8a" stroke-width="1.5"/>
+    </g>
+   </svg>
+   <div class="speech">천천히,<br>주변을 살펴요!</div><span class="littlePeng">🐧</span><span class="eagle">🦅</span>
+  </div><div class="mascotCaption">펭순이와 함께하는 안전한 서울!</div>
+ </aside>
+</main>
+<footer>독립 실행형 예시 앱 · 로그인 불필요 · 입력 내용 저장 기능은 제공하지 않습니다.<br>지도와 신호 카운트다운은 시연용이며 실제 서울 교통정보와 연결되어 있지 않습니다.</footer>
+<script>
+let currentMap=0, remaining=18, timer=null;
+const placeName=document.getElementById('placeName'), countEl=document.getElementById('count'), select=document.getElementById('placeSelect');
+function selectPlace(name){placeName.textContent=name;select.value=name;remaining=18;countEl.textContent=remaining;}
+function openSignal(){selectPlace(placeName.textContent);document.querySelector('.right').scrollIntoView({behavior:'smooth',block:'nearest'});countEl.textContent=18;}
+document.getElementById('signalDetail').addEventListener('click',openSignal);
+document.getElementById('mapSignal').addEventListener('click',openSignal);
+document.getElementById('showSignal').addEventListener('click',()=>selectPlace(select.value));
+document.querySelectorAll('.result').forEach(el=>el.addEventListener('click',()=>selectPlace(el.dataset.place)));
+select.addEventListener('change',()=>selectPlace(select.value));
+function changeMap(dir){currentMap=(currentMap+dir+3)%3;const svg=document.getElementById('mapSvg');const labels=[['주택가','학교 앞'],['공원 입구','큰길 교차로'],['시장 앞','버스 정류장']][currentMap];svg.querySelectorAll('text')[0].textContent=labels[0];svg.querySelectorAll('text')[1].textContent=labels[1];selectPlace('예시 교차로 · '+labels[1]);}
+document.getElementById('prevMap').addEventListener('click',()=>changeMap(-1));document.getElementById('nextMap').addEventListener('click',()=>changeMap(1));document.getElementById('mapLeft').addEventListener('click',()=>changeMap(-1));document.getElementById('mapRight').addEventListener('click',()=>changeMap(1));
+function doSearch(){const q=document.getElementById('search').value.trim().toLowerCase();document.querySelectorAll('.result').forEach(el=>el.style.display=(!q||el.dataset.place.toLowerCase().includes(q))?'flex':'none');}
+document.getElementById('searchBtn').addEventListener('click',doSearch);document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+</script>
+</body>
+</html>
